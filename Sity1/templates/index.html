@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Ваш автоподбор 42</title>
+{% endblock %}
+
+{% block body %}
+<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+    <img src="https://www.porsche-moscow.ru/photos/cars/custom/454328_LEDKsjBVSarHwfKInSdyMuhPDFcxohQb.jpg.optimized.png" alt="Porsche" style="max-width: 100%; height: auto;">
+    <p class="fs-5 text-body-secondary mt-5">Пользуясь нашим сервисом, вы экономите время, получаете обоснованный торг с частными продавцами и ежедневные отчеты о проверенных автомобилях, что позволяет нам найти лучшие варианты специально для вас.</p>
+    <h1 class="display-4 fw-normal text-body-emphasis mt-5">Стоимость услуг</h1>
+</div>
+
+<main>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        {% for item in items %}
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">{{ item.title }}</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title"><span class="text-body-secondary fw-light">от</span> {{ item.price|int }}<small class="text-body-secondary fw-light"> рублей</small></h1>
+                    <div class="mt-5">{{ item.description | safe }}</div>
+
+                    <!-- New Order Button -->
+                    <a href="https://t.me/artemg6000" target="_blank" class="btn btn-dark btn-order mt-4">Заказать услугу</a>
+
+                    <form method="post" action="/delete" onsubmit="return confirm('Вы уверены, что хотите удалить этот товар?');">
+                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                        <div class="input-group mt-4"> <!-- Увеличен отступ и добавлен input-group -->
+                            <input type="password" class="form-control" name="admin_code" placeholder="Введите код администратора" required>
+                            <button type="submit" class="btn btn-light btn-with-border"> <!-- Цвет кнопки изменен на белый -->
+                                <img src="https://mywebicons.ru/i/png/213e1e6a44aba5788a2d1ddb737d7727.png" alt="Удалить" style="width: 24px; height: 24px;">
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .btn-order {
+        width: 100%; /* Full width */
+        padding: 22.5px; /* Increase padding by 1.5 times (15px * 1.5) */
+        font-size: 18px; /* Increase font size */
+        margin-top: 20px; /* Add margin-top for spacing */
+    }
+
+    .btn-with-border {
+        border: 1px solid #6c757d; /* Add grey border */
+        background-color: white; /* Set background to white */
+    }
+
+    .mt-5 {
+        margin-top: 60px; /* Increased margin-top */
+    }
+</style>
+{% endblock %}

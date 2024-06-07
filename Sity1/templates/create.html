@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Добавление услуги</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Добавление услуги</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <form method="post">
+        <input type="text" class="form-control" name="title" id="title" placeholder="Введите название" required><br>
+        <input type="number" class="form-control" name="price" id="price" placeholder="Введите цену" required><br>
+        <textarea class="form-control" name="description" id="description" placeholder="Введите описание" required></textarea><br>
+        <input type="password" class="form-control" name="admin_code" id="admin_code" placeholder="Введите код администратора" required><br>
+        <button class="btn btn-success" type="submit">Добавить товар</button>
+    </form>
+</div>
+{% endblock %}
